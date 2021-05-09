@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static i18n crispy_forms_tags %}
+
+<title> {% block title %} Country List {% endblock %} </title>
+
+{% block content %}
+
+{% if request.user.is_authenticated and request.user.is_superuser %}
+<h1 class="text-center">Country List</h1>
+
+<div class="container">
+    <div class="row">
+        {% for country in countries %}
+
+        <div class="col-2 text-right">
+            <a href="{% url 'country_edit' country.id %}" class="btn btn-warning">Edit</a>
+        </div>
+        <div class="col-8 border-bottom">
+            <h3>{{ country }}</h3>
+        </div>
+        <div class="col-2">
+            <a href="{% url 'country_delete' country.id %}" class="btn btn-danger">Delete</a>
+        </div>
+
+        {% endfor %}
+    </div>
+</div>
+{% else %}
+<h2 class="alert-danger text-center">you don't have the permission to access this resource</h2>
+{% endif %}
+
+
+{% endblock %}

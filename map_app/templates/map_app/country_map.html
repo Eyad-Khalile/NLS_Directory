@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+
+<title> {% block title %} Cuntry map {% endblock %} </title>
+
+{% block content %}
+<style>
+    iframe {
+        top: -20% !important;
+    }
+    nav {
+        z-index: 1;
+    }
+</style>
+
+{{ my_map|safe }}
+
+{% endblock %}

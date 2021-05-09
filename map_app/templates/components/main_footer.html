@@ -1,0 +1,127 @@
+<!-- Footer -->
+{% load static %}
+<footer class="page-footer font-small footer-light pt-4">
+
+    <!-- Social buttons ICON -->
+    <ul class="list-unstyled list-inline text-center">
+        <!-- FACEBOOK -->
+        <li class="list-inline-item mx-3" data-aos="fade-right" data-aos-offset="100" data-aos-easing="ease-in-sine">
+            <a href="https://www.facebook.com/lasersensorcheck" class="btn-floating btn-fb mx-1" target="_blank"
+                title="Facebook">
+                <i class="fab fa-facebook-f fa-2x"> </i>
+            </a>
+        </li>
+        <!-- LINKEDIN ICON -->
+        <li class="list-inline-item mx-3" data-aos="fade-right" data-aos-offset="100" data-aos-easing="ease-in-sine">
+            <a href="https://www.linkedin.com/company/national-laser-sensor-nls-check-nls-assessment/about/"
+                class="btn-floating btn-li mx-1" target="_blank" title="Linkedin">
+                <i class="fab fa-linkedin-in fa-2x"> </i>
+            </a>
+        </li>
+        <!-- TWITTER ICON -->
+        <li class="list-inline-item mx-3" data-aos="zoom-in" data-aos-offset="100" data-aos-easing="ease-in-sine">
+            <a href="https://twitter.com/sensor_laser" class="btn-floating btn-tw mx-1" target="_blank" title="Twitter">
+                <i class="fab fa-twitter fa-2x"> </i>
+            </a>
+        </li>
+        <!-- YOUTIBE ICON -->
+        <li class="list-inline-item mx-3" data-aos="fade-left" data-aos-offset="100" data-aos-easing="ease-in-sine">
+            <a href="https://www.youtube.com/channel/UCCurYO1KKdyzqL4KY35XhAQ" class="btn-floating btn-gplus mx-1"
+                target="_blank" title="Youtube">
+                <i class="fab fa-youtube fa-2x"></i>
+            </a>
+        </li>
+        <!-- SOUNDCLOUD ICON -->
+        <li class="list-inline-item mx-3" data-aos="fade-left" data-aos-offset="100" data-aos-easing="ease-in-sine">
+            <a href="https://soundcloud.com/nation-laser-sensor" class="btn-floating btn-dribbble mx-1" target="_blank"
+                title="Soundcloud">
+                <i class="fab fa-soundcloud fa-2x"></i>
+            </a>
+        </li>
+    </ul>
+
+
+    <!-- OUR LINKS -->
+    <ul class="list-unstyled list-inline text-center">
+        <li class="list-inline-item">
+            <a href="{% url 'imprint' %}" class="text-decoration-none mx-1">
+                Imprint
+            </a>
+        </li>
+        <li class="list-inline-item">
+            <a href="{% url 'data_policy' %}" class="text-decoration-none mx-1">
+                Data Policy
+            </a>
+        </li>
+        <li class="list-inline-item">
+            <!-- COOKIE Button trigger modal -->
+            <a class="text-decoration-none mx-1" type="button" data-toggle="modal" data-target="#exampleModal">
+                Cookie Settings
+            </a>
+
+
+            <!-- ACCEPT COOKIE Modal -->
+            <div class="modal fade {% if accept_cookie != 'True' and request.path == '/' %} show {% endif %}"
+                id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="d-flex justify-content-center align-items-center">
+                                <!-- NLS LOGO -->
+                                <div class="">
+                                    <img src="{% static 'media/logo/NLS-directory.svg' %}" alt="" width="100">
+                                </div>
+                                <!-- DATA PROTECTION LINKE -->
+                                <div class="mx-1">
+                                    <h5 class="modal-title text-nowrap" id="exampleModalLabel">Data protection</h5>
+                                </div>
+                                <!-- IMPRINT LINKE -->
+                                <div class="mx-1">
+                                    <a href="{% url 'imprint' %}" class="text-decoration-none">Imprint</a>
+                                </div>
+                                <span class="text-muted">|</span>
+                                <!-- PRIVACY POLICY -->
+                                <div class="mx-1">
+                                    <a href="{% url 'data_policy' %}" class="text-decoration-none"> Privacy Policy</a>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-body">
+                            <p class="text-left">
+                                National Laser Sensor / Dipl.-Ing. Ammar Alkhatib, Owner: Dipl.-Ing. Ammar Alkhatib
+                                (Registered business address: Germany), would like to process personal data with
+                                external services. This is not necessary for using the website, but allows me to
+                                interact even more closely with them. If desired, please make a choice:
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <!-- FORM ACCEPT COOKIE -->
+                            <form action="{% url 'set_cookie' %}" method="POST" id="form_accept">
+                                {% csrf_token %}
+                                {{formCookie.accept}}
+                                <input type="text" name="current_path" class="d-none" value={{request.path}} required=""
+                                    id="id_current_path">
+                                <button type="submit" id="btn_accepted" class="btn btn-success">ACCEPT</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+        <!-- CONTACT LINKE -->
+        <li class="list-inline-item">
+            <a href="{% url 'contact' %}" class="text-decoration-none mx-1">
+                Contact
+            </a>
+        </li>
+
+    </ul>
+
+    <!-- COPYRIGHT -->
+    <div class="footer-copyright text-center py-3">
+        National Laser Sensor
+    </div>
+
+</footer>

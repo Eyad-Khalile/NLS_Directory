@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static crispy_forms_tags %}
+{% block title %} Edit Profile {% endblock %}
+
+{% block content %}
+
+<h1>Edit Profile</h1>
+
+<div class="form-group container">
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{ form.media }}
+        {{ form_profile.media }}
+
+        {{ form.username|as_crispy_field }}
+        {{ form.first_name|as_crispy_field }}
+        {{ form.last_name|as_crispy_field }}
+        {{ form.email|as_crispy_field }}
+
+        <div class="row mt-2">
+            <div class="col-md-6 col-sm-12">
+                <img src="{{ request.user.profile.picture.url }}" alt="{{ request.user.username }}" width="100%"
+                    class="rounded">
+            </div>
+            <div class="col-md-6 col-sm-12">
+                {{ form_profile.picture|as_crispy_field }}
+            </div>
+        </div>
+
+
+        <button type="submit" class="btn btn-block btn-secondary mt-4">Update Profile</button>
+    </form>
+</div>
+
+
+{% endblock %}

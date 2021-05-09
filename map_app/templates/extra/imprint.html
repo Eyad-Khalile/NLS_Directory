@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static i18n crispy_forms_tags %}
+
+<title> {% block title %} Imprint {% endblock %} </title>
+
+{% block content %}
+<div class="container">
+    <h1 class="mt-4 pt-3 mb-4">Impressum</h1>
+    <p>National Laser Sensor / Dipl.-Ing. Ammar Alkhatib</p>
+    <p>Company owner: Dipl.-Ing. Ammar Alkhatib</p>
+    <p>Tassiloweg 18</p>
+    <p>85737 Ismaning</p>
+    <p>Germany</p>
+    <p>Email: <a href="mailto:ammar.alkhatib@nls-check.com" class="text-decoration-none"
+            target="_blank">ammar.alkhatib@nls-check.com</a> </p>
+    <p>Phone: +49 (0) 152 279 526 41</p>
+    <p>§11 Place of Jurisdiction: Munich, Germany</p>
+    <br>
+    <p>Responsible for content: Ammar AL-khatib</p>
+    <br>
+    <p>European Commission Online Dispute Resolution (OS) platform for consumers: <a
+            href="https://ec.europa.eu/consumers/odr/" class="text-decoration-none"
+            target="_blank">https://ec.europa.eu/consumers/odr/</a>.
+        We are not willing or obliged to participate in a dispute settlement procedure before a consumer arbitration
+        board.</p>
+
+</div>
+
+{% endblock %}

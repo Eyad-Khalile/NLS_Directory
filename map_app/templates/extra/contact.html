@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static i18n crispy_forms_tags %}
+
+<title> {% block title %} Contact {% endblock %} </title>
+
+{% block content %}
+<div class="container pt-4 mt-4">
+    <h1 class="mt-4 mb-4" data-aos="fade-right" data-aos-offset="300" data-aos-easing="ease-in-sine">Contact</h1>
+    <div class="row">
+        <div class="col-sm-12 col-lg-6 contact-text" data-aos="fade-right" data-aos-offset="300"
+            data-aos-easing="ease-in-sine">
+            <p>Please fill in your personal information and let us know how we can help you.</p>
+
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td class="border-0 pl-0">Address</td>
+                        <td class="border-0">85737 Ismaning near Munich Germany</td>
+                    </tr>
+                    <tr>
+                        <td class="border-0 pl-0">Phone</td>
+                        <td class="border-0 pl-0">+49 (0)152 279 526 41</td>
+                    </tr>
+                    <tr>
+                        <td class="border-0 pl-0">Email</td>
+                        <td class="border-0 pl-0"> <a href="mailto:info@nls-directory.com" class="text-decoration-none">
+                                info@nls-directory.com</a></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <div class="col-sm-12 col-lg-6 mb-4" data-aos="fade-left" data-aos-offset="300" data-aos-easing="ease-in-sine">
+            <form action="" method="post" class="form-contact">
+                {% csrf_token %}
+                <div class="form-group mb-3">
+                    <input type="text" class="form-control" name="contact_name" id="id_contact_name" placeholder="Name"
+                        required>
+                    <span class="acf-required">*</span>
+                </div>
+                <div class="form-group mb-3">
+                    <input type="email" class="form-control" name="contact_email" id="id_contact_email"
+                        placeholder="Email">
+                    <span class="acf-required">*</span>
+                </div>
+                <div class="form-group mb-3">
+                    <input type="text" class="form-control" name="contact_subject" id="id_contact_subject"
+                        placeholder="Subject" required>
+                    <span class="acf-required">*</span>
+                </div>
+                <div class="form-group mb-3">
+                    <textarea name="contact_message" class="form-control" id="id_contact_message" cols="30" rows="10"
+                        placeholder="Message"></textarea>
+                    <span class="acf-required">*</span>
+                </div>
+                <p>Please note that our <a href="{% url 'data_policy' %}" class="text-decoration-none">data policy</a>
+                    apply when using this form.
+                </p>
+                <input type="submit" name="submit" id="submit" value="SUBLIT">
+
+            </form>
+        </div>
+    </div>
+
+
+
+
+
+</div>
+{% endblock %}

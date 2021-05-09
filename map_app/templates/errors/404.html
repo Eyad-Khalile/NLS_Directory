@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static i18n crispy_forms_tags %}
+
+<title> {% block title %} Page Not Found {% endblock %} </title>
+
+{% block content %}
+<div class="container pt-4 mt-4 mb-5">
+
+    <div class="card text-center p-4 rounded shadow">
+
+        
+        <h1 class="mt-4 mb-4" data-aos="fade-right" data-aos-offset="300" data-aos-easing="ease-in-sine">
+            Page Not Found
+        </h1>
+        
+        <p class="text-center">
+            Sorry, This page is missing or does not exist
+        </p>
+        
+        <a href="{% url 'home' %}" class="btn btn-primary">Go to home-page</a>
+        
+    </div>
+
+
+
+
+
+
+</div>
+{% endblock %}

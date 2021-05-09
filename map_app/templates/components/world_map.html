@@ -1,0 +1,23 @@
+<style>
+    .leaflet-popup-content-wrapper {
+        width: 500px !important;
+    }
+</style>
+
+<div class="map_container d-flex align-items-center justify-content-center">
+
+    <!-- START SVG -->
+    <svg version="1.2" viewBox="0 0 1000 623" xmlns="http://www.w3.org/2000/svg">
+
+        <!-- START PATH  -->
+        <!-- haiti-dominican border -->
+        {% for country in countries %}
+        <a xlink:title="{{country.filtre_name}} {% if country.org_country.all|length > 0 %} ( {{ country.org_country.all|length }} ){% endif %}"
+            xlink:href="{% url 'country_map' country.id %}" data-aos="zoom-in">
+            <path id="{{ country.name }}" d="{{ country.path }}"
+                class="{% for count in country.org_country.all %}{% if count.org_country and forloop.first %}path_fill{% endif %}{% endfor %}" />
+        </a>
+        {% endfor %}
+
+    </svg>
+</div>

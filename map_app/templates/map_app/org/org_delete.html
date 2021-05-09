@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static i18n crispy_forms_tags %}
+
+<title> {% block title %} Delete Organisation {% endblock %} </title>
+
+{% block content %}
+
+{% if request.user.is_authenticated and request.user.is_superuser %}
+<h1 class="text-center">Are you sure! you want delete the Organisation {{org}} ? </h1>
+
+<form action="" method="post" class="w-50 m-auto p-5 border rounded">
+    {% csrf_token %}
+    <input type="submit" value="Delete" class="btn btn-danger btn-block mt-2 mb-2">
+</form>
+{% else %}
+<h2 class="alert-danger text-center">you don't have the permission to access this resource</h2>
+{% endif %}
+
+
+{% endblock %}

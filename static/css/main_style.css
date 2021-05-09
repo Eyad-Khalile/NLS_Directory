@@ -1,0 +1,238 @@
+/* GENERAL STYLE */
+
+body {
+    font-family: Verdana,
+    Geneva,
+    sans-serif;
+}
+
+nav, footer {
+    background: #f8f8f8;
+}
+
+.nav-link {
+    transition: all 0.6s ease;
+}
+.nav-link:hover {
+    background-color: #f8f8f8;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: #006cc2;
+}
+
+/* NAVBAR ACTIVE */
+@media (min-width: 992px) {
+    nav .active.nav-link-my-cart {
+        border-bottom: 4px solid red;
+    }
+    nav .active:not(.nav-link-my-cart) {
+        border-bottom: 4px solid #006cc2;
+        color: #006cc2 !important;
+    }
+}
+
+.nav-link-my-cart {
+    color: red !important;
+}
+
+.btn-block {
+    width: 100%;
+}
+
+.asteriskField {
+    color: red;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.dropdown-org-list::after {
+    vertical-align: 0 !important;
+}
+
+.sub-org-num {
+    display: none !important;
+    position: absolute;
+    border-radius: 20%;
+    background-color: #6c757d;
+    top: 0;
+    right: 0;
+    padding: 0.5rem;
+    color: white;
+    transition: all 0.6s ease;
+}
+.sub-org-num-container:hover .sub-org-num {
+    display: block !important;
+}
+
+/* MAP */
+.map_container path {
+    /* fill: #E0E0E0; */
+    fill: #3E7FBD;
+    
+    /* stroke: #cc1100; */
+    stroke-width: 0.5px;
+    transition: all 0.3s;
+}
+
+.map_container path.path_fill {
+    fill: #E24547;
+}
+
+.map_container path:hover {
+    fill: #7F8794;
+}
+
+
+
+/* FOOTER STYLE */
+.footer-dark {
+    color: #fff;
+    
+}
+.footer-dark a{
+    color: #fff;
+
+}
+
+.my_grid {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+}
+
+
+.sub_org_item{
+    background-color: #f5f5f5;
+    /* padding-left: 50px; */
+}
+
+.dropdown-menu-details {
+    min-width: 320px;
+    height: 300px !important;
+    overflow-y: scroll !important;
+    margin-right: 50px;
+}
+
+.dropdown-menu-list-sub-orgs {
+    height: 500px !important;
+    overflow-y: scroll !important;
+}
+
+.dropdown-toggle-plus::after {
+    content: '+';
+    border: none;
+}
+
+.thead-bg {
+    background-color: #006cc2 !important;
+    color: white !important;
+}
+
+.bg-three-color {
+    background-color: #F8F8F8;
+
+}
+
+footer a {
+    color: #999;
+}
+
+svg {
+    transition: all 0.5s ease;
+}
+
+footer svg:hover {
+    transform: scale(1.2);
+}
+
+.list-inline-item a {
+    transition: all 0.5s ease;
+}
+.list-inline-item a:hover {
+    color: #0f0f0f;
+}
+
+.fa-facebook-f:hover {
+    color: #3b5998;
+}
+.fa-linkedin-in:hover {
+    color: #0e76a8;
+}
+.fa-twitter:hover {
+    color: #00acee;
+}
+.fa-youtube:hover {
+    color: #c4302b;
+}
+.fa-soundcloud:hover {
+    color: #ff7700;
+}
+
+
+
+/* CONTACT */
+.form-contact {
+    background-color: #F8F8F8;
+    padding: 2rem;
+    border-radius: 10px;
+}
+.form-contact .form-group {
+    position: relative;
+}
+.form-contact .form-group input {
+    padding-left: 1.5rem;
+}
+.form-contact .form-group textarea {
+    padding-left: 1.5rem;
+}
+
+.form-contact .acf-required {
+    position: absolute;
+    color: red;
+    top: 0.5rem;
+    left: 0.5rem;
+}
+
+.contact-text {
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+label {
+    margin-top: 1rem;
+}
+
+/* ABOUT */
+.about h2 {
+    color: #006cc2;
+}
+.about svg path {
+    fill: #006cc2;
+}
+
+
+
+@media (min-width: 992px) {
+    nav .nav-link {
+        height: 70px;
+        display: flex;
+        align-items: center;
+    }
+}
+
+.accordion-button {
+    font-size: 0.90rem !important
+}
+
+.btn-d-contents {
+    display: contents !important;
+}
+
+.nav-link-my-card {
+    padding-top: 0.70rem !important;
+}
+
+.animate__pulse {
+    animation-iteration-count: infinite;
+}

@@ -1,0 +1,27 @@
+{% autoescape off %}
+
+
+Results of searching
+{% if orgs|length > 0 %}
+{% for item in orgs %}
+Name : {{ item.name }} {% if item.level != 0 %}
+Mother Name : {{ item.parent }}{% endif %}
+Address : {% if item.full_address %} {{ item.full_address }} {% else %} It's not mention {% endif %}
+Post-Code : {% if item.org_Invoice_postal_code %} {{ item.org_Invoice_postal_code }} {% else %} It's not mention
+{% endif %}
+Region : {% if item.invoice_place %} {{ item.invoice_place }} {% else %} It's not mention {% endif %}
+Country : {% if item.org_invoice_country %} {{ item.org_invoice_country }} {% else %} It's not mention {% endif %}
+Phone : {% if item.primary_phone %} {{ item.primary_phone }} {% else %} It's not mention {% endif %}
+Fax : {% if item.fax %} {{ item.fax }} {% else %} It's not mention {% endif %}
+Email : {% if item.primary_email %} {{ item.primary_email }} {% else %} It's not mention {% endif %}
+URL : {% if item.get_absolute_url %} {{domain}}{{ item.get_absolute_url }} {% else %} It's not mention {% endif %}
+
+
+{% endfor %}
+
+best regards from the team : {{domain}}
+
+{% endif %}
+
+
+{% endautoescape %}

@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static i18n crispy_forms_tags widget_tweaks %}
+
+<title> {% block title %} Cart Details {% endblock %} </title>
+
+{% block content %}
+
+<div class="container mt-4">
+    <h1 class="mt-2 mb-2" data-aos="fade-right" data-aos-offset="300" data-aos-easing="ease-in-sine">Cart Details</h1>
+
+    <!-- IF THERE ITEMS IN THE CART -->
+    {% if cart_orgs|length > 0 %}
+
+    <table class="table ">
+        <div class="table-responsive">
+            <table class="table align-middle table-hover">
+        <thead class="thead-bg rounded">
+            <tr>
+                <th scope="col">org name</th>
+                <th scope="col">Sub From</th>
+                <th scope="col">action</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for item in cart_orgs %}
+            <tr>
+                <!-- ORG NAME -->
+                <td> {{ item.name }} </td>
+                <!-- SUB FROM -->
+                <td>
+                    {% if item.level == 0 %}
+                    -
+                    {% elif item.level == 1 %}
+                    {{ item.parent }}
+                    {% endif %}
+                </td>
+                <!-- ACTION / DETAILS AND DELETE -->
+                <td>
+                    <div class="row">
+                        <div class="col">
+                            <!-- DETAIL BTN -->
+                            <a href="{% url 'org_details' item.id %}" class="btn btn-outline-info">Details</a>
+                        </div>
+
+                        <div class="col">
+                            <!-- DELETE BTN -->
+                            <button type="button" class="btn btn-outline-danger" data-toggle="modal"
+                                data-target="#removeFromCartModal">
+                                Delete
+                            </button>
+
+                            <!-- DELETE MODAL FORM -->
+                            <div class="modal fade modal-danger-bg" id="removeFromCartModal" tabindex="-1" role="dialog"
+                                aria-labelledby="removeFromCartModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content bg-warning">
+                                        <div class="modal-body">
+                                            <h5 class="modal-title" id="removeFromCartModalLabel">Are you sure you want
+                                                to
+                                                delete the company : <br /> ( {{item.name}} ) </h5>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Cancel</button>
+                                            <!-- DELETE FORM -->
+                                            <form action="{% url 'cart:cart_remove' item.id %}" method="post">
+                                                {% csrf_token %}
+                                                <input type="text" class="d-none" name="cart_remove_input" value="1">
+                                                <input type="text" name="current_path" class="d-none"
+                                                    value="{{ request.path }}" id="id_current_path">
+                                                <!-- DELETE SUBMIT -->
+                                                <input type="submit" class="btn btn-danger" value="Delete">
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+
+            {% endfor %}
+        </tbody>
+        </table>
+        </div>
+    </table>
+
+
+    <div class="container mt-3">
+        <!-- SEND EMAIL FORM -->
+        <form action="" method="post" class=" mt-4">
+            {% csrf_token %}
+            <div class="form-group mb-2">
+                <input type="email" name="email_to" id="" placeholder="Your Email" required>
+            </div>
+            <div class="mb-3 mt-2 form-check">
+                <input type="checkbox" name="accept_policy" class="form-check-input" id="exampleCheck1"
+                    required="" id="id_accept_policy">
+                <label class="form-check-label mt-0" for="exampleCheck1">Please accept our data policy before you use the NLS
+                    Laser Sensor email service.</label>
+            </div>
+
+            <input type="submit" class="btn btn-success" value="Send me the results with Email">
+        </form>
+    </div>
+
+    <!-- IF CART EMPTY -->
+    {% else %}
+    <h2 class="mt-4">There is no item in your cart</h2>
+    {% endif %}
+
+
+</div>
+{% endblock %}

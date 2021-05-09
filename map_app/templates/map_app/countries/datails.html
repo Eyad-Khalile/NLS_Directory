@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static i18n crispy_forms_tags %}
+
+<title> {% block title %} Country Details {% endblock %} </title>
+
+{% block content %}
+
+{% if request.user.is_authenticated and request.user.is_superuser %}
+<h1 class="text-center">Country Details</h1>
+
+<h2>{{ country }}</h2>
+{% else %}
+<h2 class="alert-danger text-center">you don't have the permission to access this resource</h2>
+{% endif %}
+
+{% endblock %}

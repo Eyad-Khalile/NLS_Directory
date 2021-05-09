@@ -1,0 +1,499 @@
+{% extends 'base.html' %}
+{% load static i18n crispy_forms_tags %}
+
+<title> {% block title %} Organisation Details {% endblock %} </title>
+
+{% block content %}
+
+<h1 class="text-center mt-3 mb-3">
+    {% if org.level == 0 %}
+    Organisation Details
+    {% else %}
+    Sub Organisation
+    {% endif %}
+</h1>
+
+<div class="card col-xl-8 col-sm-10 m-auto mb-5">
+
+    <!-- HEADER -->
+    <div class="card-header">
+        <div class="d-flex justify-content-between">
+            <!-- data-aos="fade-right" -->
+            <div class="">
+                <h2 class="h3 card-title">
+                    {{org}}
+                    {% if org.level != 0 %}
+                    / Sub From : <br /> ( {{org.parent}} )
+                    {% endif %}
+                </h2>
+            </div>
+
+            <!--  data-aos="fade-right"  dropdown btn-group -->
+            <div class="d-inline-flex">
+                {% if org.children.all %}
+                <!-- <h2 class="h3 card-text float-right">{{org.org_number}}</h2> -->
+                <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="List of sub-org">
+                    <!-- <span class="sr-only">The list of sub-organisations</span> -->
+                </button>
+                <div class="dropdown-menu dropdown-menu-details pt-0 pb-0">
+                    {% for sub in org.children.all %}
+                    <a href="{% url 'org_details' sub.id %}"
+                        class="list-group-item list-group-item-action">{{ sub.name }}</a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% if request.user.is_authenticated %}
+                <a href="{% url 'add_org' %}"
+                    class="btn btn-secondary mx-1 d-flex align-items-center justify-content-center" id="add_chiled_org"
+                    title="Add sub-org">
+                    +
+                </a>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+
+    <!-- BODY -->
+    <div class="card-body">
+        <div class="row">
+            <!-- data-aos="fade-left" -->
+            <div class="col-md-4 mb-4">
+
+            </div>
+            <!--  data-aos="fade-right" -->
+            <div class="col-md-8 pl-0 pr-0">
+                <div class="profile-head ">
+
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <!-- TAB ABOUT -->
+                        {% if org.org_description %}
+                        <li class="nav-item">
+                            <a class="list-group-item list-group-item-action border-bottom-0 {% if org.org_description %} active {% endif %} "
+                                id="about-tab"
+                                data-toggle="tab" href="#about" role="tab" aria-controls="about"
+                                aria-selected="{% if org.org_description %} true {% else %} false {% endif %}">
+                                About
+                            </a>
+                        </li>
+                        {% endif %}
+
+                        <!-- TAB CONTACT -->
+                        <li class="nav-item">
+                            <a class="list-group-item list-group-item-action border-bottom-0 {% if not org.org_description %} active {% endif %}"
+                                id="contact-tab"
+                                data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
+                                aria-selected="{% if not org.org_description %} true {% else %} false {% endif %}">
+                                Contact Informations
+                            </a>
+                        </li>
+
+                        <!-- TAB PRODUCTS -->
+                        <li class="nav-item">
+                            <a class="list-group-item list-group-item-action border-bottom-0" id="news-tab"
+                                target="_blank"
+                                href="https://nls-check.com/sensors/advanced-search-engine/?product_cat=switching-sensors&pwb-brand={% if org.level == 0 %}{{org.filter_name}}{% else %}{{ org.parent.filter_name }}{% endif %}">Products</a>
+                        </li>
+
+                        <!-- TAB COMPARABLY -->
+                        <li class="nav-item">
+                            <a class="list-group-item list-group-item-action border-bottom-0" id="news-tab"
+                                target="_blank" href="https://nls-check.com/confidence-index/">
+                                Competitors | Comparably
+                            </a>
+                        </li>
+
+                        <!-- TAB CAREERS -->
+                        <li class="nav-item">
+                            <a class="list-group-item list-group-item-action border-bottom-0" id="news-tab"
+                                target="_blank" href="">Careers</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="row">
+            <!--  -->
+            <div class="col-md-4">
+                {% if org.org_description %}
+                <div class="profile-work">
+                    <h2 class="mt-4">Description :</h2>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- data-aos="fade-left" -->
+            <div class="col-md-8">
+                <div class="tab-content profile-tab" id="myTabContent">
+                    <div class="tab-pane fade {% if org.org_description %} show active {% endif %} " id="about" role="tabpanel"
+                        aria-labelledby="about-tab">
+
+                        <p class="bt-4 mt-4">
+                            {% if org.org_description %}
+                            {{ org.org_description|slice:'300' }}
+                            {% if org.org_description|length > 300 %}...
+                            <a href="{{ org.about_link }}" class="btn btn-link text-decoration-none btn-d-contents"
+                                target="_blank">
+                                Read More About
+                            </a>
+                            {% endif %}
+                            {% else %}
+                            <span class="text-muted"> It's not mention </span>
+                            {% endif %}
+                        </p>
+                    </div>
+
+
+
+                    <div class="tab-pane fade pt-4 {% if not org.org_description %} show active {% endif %} " id="contact"
+                        role="tabpanel"
+                        aria-labelledby="contact-tab">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Webseite :</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>
+                                    {% if org.website %}
+                                    <a href="{{ org.website }}" target="_blank">{{ org.website }}</a>
+                                    {% else %}
+                                    <span class="text-muted"> It's not mention </span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Primary phone :</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>
+                                    {% if org.primary_phone %}
+                                    {{ org.primary_phone }}
+                                    {% else %}
+                                    <span class="text-muted"> It's not mention </span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Fax :</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>
+                                    {% if org.fax %}
+                                    {{ org.fax }}
+                                    {% else %}
+                                    <span class="text-muted"> It's not mention </span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Another phone :</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>
+                                    {% if org.another_phone %}
+                                    {{ org.another_phone }}
+                                    {% else %}
+                                    <span class="text-muted"> It's not mention </span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Primary email :</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>
+                                    {% if org.primary_email %}
+                                    {{ org.primary_email }}
+                                    {% else %}
+                                    <span class="text-muted"> It's not mention </span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Another email :</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>
+                                    {% if org.another_email %}
+                                    {{ org.another_email }}
+                                    {% else %}
+                                    <span class="text-muted"> It's not mention </span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Email OPT from :</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>
+                                    {% if org.email_opt_from %}
+                                    {{ org.email_opt_from }}
+                                    {% else %}
+                                    <span class="text-muted"> It's not mention </span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- <div class="row">
+                            <div class="col-md-6">
+                                <label>Address :</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>
+                                    {% if org.address %}
+                                    {{ org.address }}
+                                    {% else %}
+                                    <span class="text-muted"> It's not mention </span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div> -->
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Address :</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>
+                                    {% if org.full_address %}
+                                    {{ org.full_address }}
+                                    {% elif org.address %}
+                                    {{ org.address }}
+                                    {% else %}
+                                    <span class="text-muted"> It's not mention </span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- <div class="row">
+                            <div class="col-md-6">
+                                <label>Shipping address :</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>
+                                    {% if org.shipping_address %}
+                                    {{ org.shipping_address }}
+                                    {% else %}
+                                    <span class="text-muted"> It's not mention </span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div> -->
+
+                        <!-- <div class="row">
+                            <div class="col-md-6">
+                                <label>Invoice PO Box :</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>
+                                    {% if org.invoice_po_box %}
+                                    {{ org.invoice_po_box }}
+                                    {% else %}
+                                    <span class="text-muted"> It's not mention </span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Delivery mailbox :</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>
+                                    {% if org.delivery_mailbox %}
+                                    {{ org.delivery_mailbox }}
+                                    {% else %}
+                                    <span class="text-muted"> It's not mention </span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div> -->
+
+                        <!-- <div class="row">
+                            <div class="col-md-6">
+                                <label>Invoice Place :</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>
+                                    {% if org.invoice_place %}
+                                    {{ org.invoice_place }}
+                                    {% else %}
+                                    <span class="text-muted"> It's not mention </span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Delivery Place :</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>
+                                    {% if org.delivery_place %}
+                                    {{ org.delivery_place }}
+                                    {% else %}
+                                    <span class="text-muted"> It's not mention </span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div> -->
+
+                        <!-- <div class="row">
+                            <div class="col-md-6">
+                                <label>Invoice Federal State :</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>
+                                    {% if org.org_invoice_federal_state %}
+                                    {{ org.org_invoice_federal_state }}
+                                    {% else %}
+                                    <span class="text-muted"> It's not mention </span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div> -->
+
+                        <!-- <div class="row">
+                            <div class="col-md-6">
+                                <label>Delivery State :</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>
+                                    {% if org.org_delivery_state %}
+                                    {{ org.org_delivery_state }}
+                                    {% else %}
+                                    <span class="text-muted"> It's not mention </span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div> -->
+
+                        <!-- <div class="row">
+                            <div class="col-md-6">
+                                <label>Invoice postal code :</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>
+                                    {% if org.org_Invoice_postal_code %}
+                                    {{ org.org_Invoice_postal_code }}
+                                    {% else %}
+                                    <span class="text-muted"> It's not mention </span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div> -->
+
+                        <!-- <div class="row">
+                            <div class="col-md-6">
+                                <label>Delivery zip code :</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>
+                                    {% if org.org_delivery_zip_code %}
+                                    {{ org.org_delivery_zip_code }}
+                                    {% else %}
+                                    <span class="text-muted"> It's not mention </span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div> -->
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Country :</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>
+                                    {% if org.org_country %}
+                                    {{ org.org_country }}
+                                    {% else %}
+                                    <span class="text-muted"> It's not mention </span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- <div class="row">
+                            <div class="col-md-6">
+                                <label>Delivery country :</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>
+                                    {% if org.org_delivery_country %}
+                                    {{ org.org_delivery_country }}
+                                    {% else %}
+                                    <span class="text-muted"> It's not mention </span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div> -->
+
+
+                    </div>
+
+                    <!-- <div class="tab-pane fade" id="news" role="tabpanel" aria-labelledby="news-tab">
+                        <p class="card-text text-muted h4 mt-5">Not yet ... </p>
+                    </div> -->
+
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="card-footer">
+        <div class="row">
+            {% if request.user.is_authenticated and request.user.is_superuser %}
+            <div class="col">
+                <a href="{% url 'org_update' org.id %}" class="btn btn-block btn-warning">Update</a>
+            </div>
+            <div class="col">
+                <a href="{% url 'org_delete' org.id %}" class="btn btn-block btn-danger">Dalete</a>
+            </div>
+            {% endif %}
+
+            <div class="col">
+                <form action="{% url 'cart:cart_add' org.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-block btn-success" value="add to cart">
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,88 @@
+{% load static i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+<!doctype html>
+<html lang="{{ LANGUAGE_CODE }}" {% if LANGUAGE_CODE == 'ar' %} dir="rtl" {% endif %}>
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CEO -->
+    <meta name="keywords"
+        content="National, Laser, Sensor, Sensors, Directory, Solutions, Smartsensor, Smart, Technology, Sensorcheck,
+        Check, Assessment, Evaluation, Products, Manufacturers Agent, Subsidiary, Intermediary, Promoter" />
+    <meta name="description"
+        content="Our goal is that National Laser Sensor reaches out the Laser Sensor Technology to 1/6 of the world’s population in the coming 10 years." />
+    <meta name="subject" content="Our universe is all about laser sensor solutions.">    
+    <meta name="language" content="EN-US">
+    <meta name="Classification" content="Electrical & Electronic Manufacturing  && Industrial company ">
+    <meta name="author" content="Ammar Alkhatib, ammar.alkhatib@nls-check.com">
+    <meta name="url" content="http://nls-directory.com/">
+    <meta name="og:image" content="{% static 'media/logo/NLS-directory.svg' %}" />
+    <meta name="og:site_name" content="NLS-Directory" />
+    <meta name="og:description"
+        content="Our goal is that National Laser Sensor reaches out the Laser Sensor Technology to 1/6 of the world’s population in the coming 10 years." />
+
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/alpha3/bootstrap.min.css' %}">
+
+    <!-- Our project just needs Font Awesome Free's Solid + Brand files -->
+    <link href="{% static 'fontawesome_free/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesome_free/css/brands.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesome_free/css/solid.css' %}" rel="stylesheet" type="text/css">
+    <script src="{% static 'fontawesome_free/js/all.min.js' %}"></script>
+
+    <!-- AOS -->
+    <link href="{% static 'css/aos/aos.css' %}" rel="stylesheet">
+
+    <!-- ANIMATION -->
+    <link href="{% static 'css/animation/animate.min.css' %}" rel="stylesheet">
+
+    <!-- CUSTOM STYLE -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main_style.css' %}">
+
+    <title> {% block title %} {% endblock %} </title>
+</head>
+
+<body>
+    <header>
+        {% include 'components/main_navbar.html' %}
+    </header>
+    <div class="container-fluid min-vh-100 p-0 m-0">
+        <!-- MESSAGES -->
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert {% if message.tags == 'error' %} alert-danger {% else %}
+          alert-{{message.tags}} {% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        <!-- END LES MESSAGES -->
+
+        <!-- THE START OF CONTENT APPLICATION -->
+        {% block content %} {% endblock %}
+        <!-- THE END OF CONTENT APPLICATION -->
+    </div>
+
+    {% include 'components/main_footer.html' %}
+
+
+    <!-- BOOTSTRAP JS -->
+    <script src="{% static 'js/bootstrap/alpha3/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- JQUERY -->
+    <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+
+    <!-- AOS -->
+    <script src="{% static 'js/aos/aos.js' %}"></script>
+
+    <!-- MY SCRIPT -->
+    <script src="{% static 'js/main_js.js' %}"></script>
+
+</body>
+
+</html>

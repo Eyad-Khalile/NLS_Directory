@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static i18n crispy_forms_tags %}
+
+<title> {% block title %} Error Server  {% endblock %} </title>
+
+{% block content %}
+<div class="container about pt-4 mt-4 mb-5">
+
+    <div class="card text-center p-4 rounded shadow">
+
+        <h1 class="mt-4 mb-4" data-aos="fade-right" data-aos-offset="300" data-aos-easing="ease-in-sine">
+            Error Server
+        </h1>
+        
+        
+        <a href="{% url 'home' %}" class="btn btn-primary">Go to homepage</a>
+    </div>
+
+
+
+
+
+
+</div>
+{% endblock %}
