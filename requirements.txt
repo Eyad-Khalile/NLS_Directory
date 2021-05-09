@@ -20,7 +20,7 @@ Jinja2==2.11.3
 MarkupPy==1.14
 MarkupSafe==1.1.1
 mysqlclient==2.0.3
-numpy==1.20.1
+numpy==1.19.5
 odfpy==1.4.1
 openpyxl==3.0.7
 Pillow==8.0.1
