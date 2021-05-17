@@ -24,12 +24,16 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = "0121#gy^92ovph$(*=ze7-@sr$h(9@#*q32de5d4$6$3a5w2m5"
+# SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', cast=bool)
+DEBUG = True
+# DEBUG = config('DEBUG', cast=bool)
 
-ALLOWED_HOSTS = [config('MAIN_HOST')]
+ALLOWED_HOSTS = ['https://nls-directory.com/',
+                 'www.nls-directory.com/', 'nls-directory.com/', '127.0.0.1']
+# ALLOWED_HOSTS = [config('MAIN_HOST'), '127.0.0.1']
 
 
 # Application definition
@@ -98,23 +102,23 @@ WSGI_APPLICATION = 'nls_world_map.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'NLS_Directory_DB',
-        'USER': 'Eyad_79',
-        'PASSWORD': 'EyadPacha1979@',
-        'HOST': 'pirio.han-solo.net',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'NLS_Directory_DB',
+#         'USER': 'admin_eyad',
+#         'PASSWORD': 'EyadPacha79@',
+#         'HOST': 'piriro.han-solo.net',
+#         'PORT': '3306',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -195,12 +199,25 @@ LOGOUT_REDIRECT_URL = 'home'
 
 # ===== SMTP EMAIL CONFIGURATIONS ===========
 EMAIL_BACKEND       = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST          = 'smtp.gmail.com'
+EMAIL_HOST          = 'mail.nls-directory.com'
+# EMAIL_HOST          = 'smtp.gmail.com'
+# EMAIL_HOST        = 'smtp02.hostnet.nl'
 EMAIL_PORT          = 587
 EMAIL_USE_TLS       = True
 EMAIL_HOST_USER     = 'info@nls-directory.com'
-EMAIL_HOST_PASSWORD = 'EMAIL_PASSWORD'
+EMAIL_HOST_PASSWORD = 'Ismainfo11=2021%'
 
 
 # CART SESSION
 CART_SESSION_ID = 'cart'
+
+
+# HTTPS SETTINGS
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
+
+# HSTS SETTINGS
+SECURE_HSTS_SECONDS = 31536000 # 1 YEAR
+SECURE_HSTS_PRELOAD = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
